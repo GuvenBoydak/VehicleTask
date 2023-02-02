@@ -14,6 +14,7 @@ public class VehicleDbContext : DbContext
     public DbSet<Bus> Buses { get; set; }
     public DbSet<Boat> Boats { get; set; }
     public DbSet<Color> Colors { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
