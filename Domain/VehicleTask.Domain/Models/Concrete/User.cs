@@ -4,6 +4,13 @@ namespace VehicleTask.Domain.Models.Concrete;
 
 public class User:IBaseEntity
 {
+    public User()
+    {
+        Id=Guid.NewGuid();
+        CreatedDate = DateTime.UtcNow;
+        IsDeleted = false;
+    }
+
     public Guid Id { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime DeletedDate { get; set; }
