@@ -2,6 +2,6 @@
 
 namespace VehicleTask.Application.Intefaces.Repositories;
 
-public interface IBusRepository:IRepository<Car>
+public interface IBusRepository:IRepository<Bus>
 {
 }

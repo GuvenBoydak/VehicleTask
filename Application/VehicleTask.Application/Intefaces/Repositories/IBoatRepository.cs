@@ -2,6 +2,6 @@
 
 namespace VehicleTask.Application.Intefaces.Repositories;
 
-public interface IBoatRepository:IRepository<Car>
+public interface IBoatRepository:IRepository<Boat>
 {
 }
