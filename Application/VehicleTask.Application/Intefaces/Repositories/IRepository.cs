@@ -4,7 +4,7 @@ using VehicleTask.Domain.Models.Abstract;
 
 namespace VehicleTask.Application.Intefaces.Repositories;
 
-public interface IRepository<T> where T : Vehicle
+public interface IRepository<T> where T : class,IBaseEntity
 {
     DbSet<T> Table { get; }
 

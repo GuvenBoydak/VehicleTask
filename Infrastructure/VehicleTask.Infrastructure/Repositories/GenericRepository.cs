@@ -6,7 +6,7 @@ using VehicleTask.Infrastructure.Context;
 
 namespace VehicleTask.Infrastructure.Repositories;
 
-public class GenericRepository<T>:IRepository<T> where T:Vehicle
+public class GenericRepository<T>:IRepository<T> where T:class,IBaseEntity
 {
     private readonly VehicleDbContext _dbContext;
 

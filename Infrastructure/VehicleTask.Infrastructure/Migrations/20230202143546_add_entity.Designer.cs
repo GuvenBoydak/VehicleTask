@@ -12,7 +12,7 @@ using VehicleTask.Infrastructure.Context;
 namespace VehicleTask.Infrastructure.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20230202141040_add_entity")]
+    [Migration("20230202143546_add_entity")]
     partial class addentity
     {
         /// <inheritdoc />
@@ -36,10 +36,8 @@ namespace VehicleTask.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<Guid>("ColorId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -57,6 +55,8 @@ namespace VehicleTask.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ColorId");
 
                     b.ToTable("Boats");
                 });
@@ -72,10 +72,8 @@ namespace VehicleTask.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<Guid>("ColorId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -96,6 +94,8 @@ namespace VehicleTask.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ColorId");
 
                     b.ToTable("Buses");
                 });
@@ -111,10 +111,8 @@ namespace VehicleTask.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<Guid>("ColorId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -136,7 +134,74 @@ namespace VehicleTask.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ColorId");
+
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("VehicleTask.Domain.Models.Concrete.Color", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("VehicleTask.Domain.Models.Concrete.Boat", b =>
+                {
+                    b.HasOne("VehicleTask.Domain.Models.Concrete.Color", "Color")
+                        .WithMany("Boats")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+                });
+
+            modelBuilder.Entity("VehicleTask.Domain.Models.Concrete.Bus", b =>
+                {
+                    b.HasOne("VehicleTask.Domain.Models.Concrete.Color", "Color")
+                        .WithMany("Buses")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+                });
+
+            modelBuilder.Entity("VehicleTask.Domain.Models.Concrete.Car", b =>
+                {
+                    b.HasOne("VehicleTask.Domain.Models.Concrete.Color", "Color")
+                        .WithMany("Cars")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+                });
+
+            modelBuilder.Entity("VehicleTask.Domain.Models.Concrete.Color", b =>
+                {
+                    b.Navigation("Boats");
+
+                    b.Navigation("Buses");
+
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }
