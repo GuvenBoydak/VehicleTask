@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleTask.Application.DTOs.Boats;
 using VehicleTask.Application.DTOs.Responce;
@@ -11,6 +12,7 @@ using VehicleTask.Application.Features.Queries.Boats.GetBoatsByColorId;
 
 namespace VehicleTask.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class BoatsController : BaseController
@@ -42,22 +44,22 @@ public class BoatsController : BaseController
     [Route("Headlights-On-Or-Off-ByBoatId")]
     public async Task<IActionResult> Add([FromBody] HeadlightsOnOrOffByBoatIdCommand request)
     {
-        await _mediator.Send(request);
-        return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        var responce = await _mediator.Send(request);
+        return CreateActionResult(CustomResponseDto<BoatDto>.Success(200, responce));
     }
 
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] CreateBoatCommand request)
     {
-        await _mediator.Send(request);
-        return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        var responce = await _mediator.Send(request);
+        return CreateActionResult(CustomResponseDto<BoatDto>.Success(200, responce));
     }
 
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateBoatCommand request)
     {
-        await _mediator.Send(request);
-        return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        var responce = await _mediator.Send(request);
+        return CreateActionResult(CustomResponseDto<BoatDto>.Success(200, responce));
     }
 
     [HttpDelete]

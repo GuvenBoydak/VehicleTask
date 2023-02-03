@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using VehicleTask.Application.Features.Command.Color.CreateColor;
+using VehicleTask.Application.DTOs.Cars;
 
 namespace VehicleTask.Application.Features.Command.Car.CreateCar;
 
-public class CreateCarCommand : IRequest
+public class CreateCarCommand : IRequest<CarDto>
 {
     public string Brand { get; set; }
     public int SeatCapacity { get; set; }

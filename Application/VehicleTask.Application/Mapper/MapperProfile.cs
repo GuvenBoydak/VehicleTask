@@ -20,31 +20,34 @@ using VehicleTask.Domain.Models.Concrete;
 
 namespace VehicleTask.Application.Mapper;
 
-public class MapperProfile:Profile
+public class MapperProfile : Profile
 {
     public MapperProfile()
     {
         CreateMap<User, UserListDto>().ReverseMap();
         CreateMap<User, RegisterUserCommand>().ReverseMap();
-        
-        CreateMap<Color,ColorDto>().ReverseMap();
-        CreateMap<Color,ColorListDto>().ReverseMap();
-        CreateMap<Color,CreateColorCommand>().ReverseMap();
-        CreateMap<Color,UpdateColorCommand>().ReverseMap();
-        
-        CreateMap<Car,CarListDto>().ReverseMap();
-        CreateMap<Car,CreateCarCommand>().ReverseMap();
-        CreateMap<Car,UpdateCarCommand>().ReverseMap();
-        CreateMap<Car,HeadlightsOnOrOffByCarIdCommand>().ReverseMap();
-        
-        CreateMap<Bus,BusListDto>().ReverseMap();
-        CreateMap<Bus,CreateBusCommand>().ReverseMap();
-        CreateMap<Bus,UpdateBusCommand>().ReverseMap();
-        CreateMap<Bus,HeadlightsOnOrOffByBusIdCommand>().ReverseMap();
-        
-        CreateMap<Boat,BoatListDto>().ReverseMap();
-        CreateMap<Boat,CreateBoatCommand>().ReverseMap();
-        CreateMap<Boat,UpdateBoatCommand>().ReverseMap();
-        CreateMap<Boat,HeadlightsOnOrOffByBoatIdCommand>().ReverseMap();
+
+        CreateMap<Color, ColorDto>().ReverseMap();
+        CreateMap<Color, ColorListDto>().ReverseMap();
+        CreateMap<Color, CreateColorCommand>().ReverseMap();
+        CreateMap<Color, UpdateColorCommand>().ReverseMap();
+
+        CreateMap<Car, CarDto>().ReverseMap();
+        CreateMap<Car, CarListDto>().ReverseMap();
+        CreateMap<Car, CreateCarCommand>().ReverseMap();
+        CreateMap<Car, UpdateCarCommand>().ReverseMap();
+        CreateMap<Car, HeadlightsOnOrOffByCarIdCommand>().ReverseMap();
+
+        CreateMap<Bus, BusDto>().ReverseMap();
+        CreateMap<Bus, BusListDto>().ReverseMap();
+        CreateMap<Bus, CreateBusCommand>().ReverseMap();
+        CreateMap<Bus, UpdateBusCommand>().ReverseMap();
+        CreateMap<Bus, HeadlightsOnOrOffByBusIdCommand>().ReverseMap();
+
+        CreateMap<Boat, BoatDto>().ReverseMap();
+        CreateMap<Boat, BoatListDto>().ReverseMap();
+        CreateMap<Boat, CreateBoatCommand>().ReverseMap();
+        CreateMap<Boat, UpdateBoatCommand>().ReverseMap();
+        CreateMap<Boat, HeadlightsOnOrOffByBoatIdCommand>().ReverseMap();
     }
 }

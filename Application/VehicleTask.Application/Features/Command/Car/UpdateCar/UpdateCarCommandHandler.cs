@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using VehicleTask.Application.DTOs.Cars;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
 
 namespace VehicleTask.Application.Features.Command.Car.UpdateCar;
 
-public class UpdateCarCommandHandler : AsyncRequestHandler<UpdateCarCommand>
+public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, CarDto>
 {
     private readonly IMapper _mapper;
     private readonly ICarRepository _carRepository;
@@ -18,11 +19,13 @@ public class UpdateCarCommandHandler : AsyncRequestHandler<UpdateCarCommand>
         _unitOfWork = unitOfWork;
     }
 
-    protected override async Task Handle(UpdateCarCommand request, CancellationToken cancellationToken)
+    public async Task<CarDto> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
     {
         var car = _mapper.Map<UpdateCarCommand, Domain.Models.Concrete.Car>(request);
 
         _carRepository.Update(car);
         await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<Domain.Models.Concrete.Car, CarDto>(car);
     }
 }

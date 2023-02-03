@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using VehicleTask.Application.DTOs.Buses;
 
 namespace VehicleTask.Application.Features.Command.Buses.CreateBus;
 
-public class CreateBusCommand : IRequest
+public class CreateBusCommand : IRequest<BusDto>
 {
     public string Brand { get; set; }
     public int SeatCapacity { get; set; }

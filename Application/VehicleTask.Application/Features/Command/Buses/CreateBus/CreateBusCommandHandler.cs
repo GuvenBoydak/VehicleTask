@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
-using VehicleTask.Application.Features.Command.Car.CreateCar;
+using VehicleTask.Application.DTOs.Buses;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
 
 namespace VehicleTask.Application.Features.Command.Buses.CreateBus;
 
-public class CreateBusCommandHandler : AsyncRequestHandler<CreateBusCommand>
+public class CreateBusCommandHandler : IRequestHandler<CreateBusCommand, BusDto>
 {
     private readonly IMapper _mapper;
     private readonly IBusRepository _busRepository;
@@ -19,11 +19,13 @@ public class CreateBusCommandHandler : AsyncRequestHandler<CreateBusCommand>
         _unitOfWork = unitOfWork;
     }
 
-    protected override async Task Handle(CreateBusCommand request, CancellationToken cancellationToken)
+    public async Task<BusDto> Handle(CreateBusCommand request, CancellationToken cancellationToken)
     {
         var bus = _mapper.Map<CreateBusCommand, Domain.Models.Concrete.Bus>(request);
 
         await _busRepository.AddAsync(bus);
         await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<Domain.Models.Concrete.Bus, BusDto>(bus);
     }
 }

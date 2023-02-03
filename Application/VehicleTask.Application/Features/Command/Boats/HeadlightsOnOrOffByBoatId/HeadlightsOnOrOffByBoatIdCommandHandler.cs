@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using VehicleTask.Application.DTOs.Boats;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
 
 namespace VehicleTask.Application.Features.Command.Boats.HeadlightsOnOrOffByBoatId;
 
-public class HeadlightsOnOrOffByBoatIdCommandHandler : AsyncRequestHandler<HeadlightsOnOrOffByBoatIdCommand>
+public class HeadlightsOnOrOffByBoatIdCommandHandler : IRequestHandler<HeadlightsOnOrOffByBoatIdCommand, BoatDto>
 {
     private readonly IMapper _mapper;
     private readonly IBoatRepository _boatRepository;
@@ -19,11 +20,13 @@ public class HeadlightsOnOrOffByBoatIdCommandHandler : AsyncRequestHandler<Headl
         _unitOfWork = unitOfWork;
     }
 
-    protected override async Task Handle(HeadlightsOnOrOffByBoatIdCommand request, CancellationToken cancellationToken)
+    public async Task<BoatDto> Handle(HeadlightsOnOrOffByBoatIdCommand request, CancellationToken cancellationToken)
     {
         var boat = _mapper.Map<HeadlightsOnOrOffByBoatIdCommand, Domain.Models.Concrete.Boat>(request);
 
         _boatRepository.Update(boat);
         await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<Domain.Models.Concrete.Boat, BoatDto>(boat);
     }
 }

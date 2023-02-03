@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using VehicleTask.Application.DTOs.Boats;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
 
 namespace VehicleTask.Application.Features.Command.Boats.UpdateBoat;
 
-public class UpdateBoatCommandHandler : AsyncRequestHandler<UpdateBoatCommand>
+public class UpdateBoatCommandHandler : IRequestHandler<UpdateBoatCommand, BoatDto>
 {
     private readonly IMapper _mapper;
     private readonly IBoatRepository _boatRepository;
@@ -18,11 +19,13 @@ public class UpdateBoatCommandHandler : AsyncRequestHandler<UpdateBoatCommand>
         _unitOfWork = unitOfWork;
     }
 
-    protected override async Task Handle(UpdateBoatCommand request, CancellationToken cancellationToken)
+    public async Task<BoatDto> Handle(UpdateBoatCommand request, CancellationToken cancellationToken)
     {
         var boat = _mapper.Map<UpdateBoatCommand, Domain.Models.Concrete.Boat>(request);
 
         _boatRepository.Update(boat);
         await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<Domain.Models.Concrete.Boat, BoatDto>(boat);
     }
 }

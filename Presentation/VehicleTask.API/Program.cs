@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastractureServices();
+builder.Services.AddInfrastractureServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -31,3 +31,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
