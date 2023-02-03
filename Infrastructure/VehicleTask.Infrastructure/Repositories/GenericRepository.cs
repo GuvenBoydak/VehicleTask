@@ -59,7 +59,7 @@ public class GenericRepository<T> : IRepository<T> where T : class, IBaseEntity
 
         foreach (var property in Table.Entry(entity).Properties)
         {
-            if (property.CurrentValue != null && property.CurrentValue is not Guid)
+            if (property.CurrentValue != null && property.Metadata.Name != "Id")
                 Table.Entry(entity).Property(property.Metadata.Name).IsModified = true;
         }
     }
