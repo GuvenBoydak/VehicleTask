@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using VehicleTask.Application.DTOs.Buses;
 using VehicleTask.Application.DTOs.Cars;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
@@ -27,6 +28,7 @@ public class HeadlightsOnOrOffByCarIdCommandHandler : IRequestHandler<Headlights
         _carRepository.Update(car);
         await _unitOfWork.SaveChangesAsync();
 
-        return _mapper.Map<Domain.Models.Concrete.Car, CarDto>(car);
+        var currentCar = await _carRepository.GetById(car.Id);
+        return _mapper.Map<Domain.Models.Concrete.Car, CarDto>(currentCar);
     }
 }

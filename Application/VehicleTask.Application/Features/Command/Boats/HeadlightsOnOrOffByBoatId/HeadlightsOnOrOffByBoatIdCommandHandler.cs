@@ -3,6 +3,7 @@ using MediatR;
 using VehicleTask.Application.DTOs.Boats;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
+using VehicleTask.Domain.Models.Concrete;
 
 namespace VehicleTask.Application.Features.Command.Boats.HeadlightsOnOrOffByBoatId;
 
@@ -22,11 +23,12 @@ public class HeadlightsOnOrOffByBoatIdCommandHandler : IRequestHandler<Headlight
 
     public async Task<BoatDto> Handle(HeadlightsOnOrOffByBoatIdCommand request, CancellationToken cancellationToken)
     {
-        var boat = _mapper.Map<HeadlightsOnOrOffByBoatIdCommand, Domain.Models.Concrete.Boat>(request);
+        var boat = new Boat() { Id = request.Id, IsHeadlightOn = request.IsHeadlightOn };
 
         _boatRepository.Update(boat);
         await _unitOfWork.SaveChangesAsync();
 
-        return _mapper.Map<Domain.Models.Concrete.Boat, BoatDto>(boat);
+        var currentBoat=await _boatRepository.GetById(boat.Id);
+        return _mapper.Map<Boat, BoatDto>(currentBoat);
     }
 }

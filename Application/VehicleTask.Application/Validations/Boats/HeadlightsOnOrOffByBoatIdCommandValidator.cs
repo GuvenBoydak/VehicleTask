@@ -9,7 +9,5 @@ public class HeadlightsOnOrOffByBoatIdCommandValidator : AbstractValidator<Headl
     {
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage("Id Field must not be empty.");
-        RuleFor(x => x.IsHeadlightOn)
-            .NotEmpty().WithMessage("IsHeadlightOn Field must not be empty.");
     }
 }

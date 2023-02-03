@@ -26,6 +26,7 @@ public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, CarDto>
         _carRepository.Update(car);
         await _unitOfWork.SaveChangesAsync();
 
-        return _mapper.Map<Domain.Models.Concrete.Car, CarDto>(car);
+        var currentCar = await _carRepository.GetById(car.Id);
+        return _mapper.Map<Domain.Models.Concrete.Car, CarDto>(currentCar);
     }
 }

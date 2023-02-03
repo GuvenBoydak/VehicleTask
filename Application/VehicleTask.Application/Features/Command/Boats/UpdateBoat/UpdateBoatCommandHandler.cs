@@ -3,6 +3,7 @@ using MediatR;
 using VehicleTask.Application.DTOs.Boats;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
+using VehicleTask.Domain.Models.Concrete;
 
 namespace VehicleTask.Application.Features.Command.Boats.UpdateBoat;
 
@@ -26,6 +27,7 @@ public class UpdateBoatCommandHandler : IRequestHandler<UpdateBoatCommand, BoatD
         _boatRepository.Update(boat);
         await _unitOfWork.SaveChangesAsync();
 
-        return _mapper.Map<Domain.Models.Concrete.Boat, BoatDto>(boat);
+        var currentBoat=await _boatRepository.GetById(boat.Id);
+        return _mapper.Map<Boat, BoatDto>(currentBoat);
     }
 }

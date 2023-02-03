@@ -6,7 +6,7 @@ using VehicleTask.Infrastructure.Context;
 
 namespace VehicleTask.Infrastructure.Repositories;
 
-public class GenericRepository<T>:IRepository<T> where T:class,IBaseEntity
+public class GenericRepository<T> : IRepository<T> where T : class, IBaseEntity
 {
     private readonly VehicleDbContext _dbContext;
 
@@ -16,8 +16,8 @@ public class GenericRepository<T>:IRepository<T> where T:class,IBaseEntity
     }
 
     public DbSet<T> Table => _dbContext.Set<T>();
-        
-      
+
+
     public async Task<T> GetById(Guid id)
     {
         return await Table.FirstOrDefaultAsync(x => x.Id == id);
@@ -43,8 +43,9 @@ public class GenericRepository<T>:IRepository<T> where T:class,IBaseEntity
         var entity = await Table.FindAsync(id);
         if (entity == null)
             throw new InvalidOperationException($"{nameof(entity)} Not found");
-        
+
         entity.IsDeleted = true;
+        entity.DeletedDate = DateTime.UtcNow;
         Update(entity);
     }
 

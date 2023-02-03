@@ -3,6 +3,7 @@ using MediatR;
 using VehicleTask.Application.DTOs.Buses;
 using VehicleTask.Application.Intefaces.Repositories;
 using VehicleTask.Application.Intefaces.UnitOfWork;
+using VehicleTask.Domain.Models.Concrete;
 
 namespace VehicleTask.Application.Features.Command.Buses.UpdateBus;
 
@@ -25,7 +26,8 @@ public class UpdateBusCommandHandler : IRequestHandler<UpdateBusCommand, BusDto>
 
         _busRepository.Update(bus);
         await _unitOfWork.SaveChangesAsync();
-
-        return _mapper.Map<Domain.Models.Concrete.Bus, BusDto>(bus);
+        
+        var currentBus = await _busRepository.GetById(bus.Id);
+        return _mapper.Map<Bus, BusDto>(currentBus);
     }
 }
