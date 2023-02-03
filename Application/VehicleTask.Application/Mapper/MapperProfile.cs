@@ -5,10 +5,13 @@ using VehicleTask.Application.DTOs.Cars;
 using VehicleTask.Application.DTOs.Colors;
 using VehicleTask.Application.DTOs.Users;
 using VehicleTask.Application.Features.Command.Boats.CreateBoat;
+using VehicleTask.Application.Features.Command.Boats.HeadlightsOnOrOffByBoatId;
 using VehicleTask.Application.Features.Command.Boats.UpdateBoat;
 using VehicleTask.Application.Features.Command.Buses.CreateBus;
+using VehicleTask.Application.Features.Command.Buses.HeadlightsOnOrOffByBusId;
 using VehicleTask.Application.Features.Command.Buses.UpdateBus;
 using VehicleTask.Application.Features.Command.Car.CreateCar;
+using VehicleTask.Application.Features.Command.Car.HeadlightsOnOrOffByCarId;
 using VehicleTask.Application.Features.Command.Car.UpdateCar;
 using VehicleTask.Application.Features.Command.Color.CreateColor;
 using VehicleTask.Application.Features.Command.Color.UpdateColor;
@@ -32,13 +35,16 @@ public class MapperProfile:Profile
         CreateMap<Car,CarListDto>().ReverseMap();
         CreateMap<Car,CreateCarCommand>().ReverseMap();
         CreateMap<Car,UpdateCarCommand>().ReverseMap();
+        CreateMap<Car,HeadlightsOnOrOffByCarIdCommand>().ReverseMap();
         
         CreateMap<Bus,BusListDto>().ReverseMap();
         CreateMap<Bus,CreateBusCommand>().ReverseMap();
         CreateMap<Bus,UpdateBusCommand>().ReverseMap();
+        CreateMap<Bus,HeadlightsOnOrOffByBusIdCommand>().ReverseMap();
         
         CreateMap<Boat,BoatListDto>().ReverseMap();
         CreateMap<Boat,CreateBoatCommand>().ReverseMap();
         CreateMap<Boat,UpdateBoatCommand>().ReverseMap();
+        CreateMap<Boat,HeadlightsOnOrOffByBoatIdCommand>().ReverseMap();
     }
 }
