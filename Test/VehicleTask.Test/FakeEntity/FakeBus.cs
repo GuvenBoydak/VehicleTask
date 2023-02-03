@@ -1,5 +1,4 @@
 ﻿using VehicleTask.Domain.Models.Concrete;
-using VehicleTask.Test.TestSetup;
 
 namespace VehicleTask.Test.FakeEntity;
 

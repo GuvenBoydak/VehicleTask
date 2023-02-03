@@ -13,11 +13,10 @@ public static class InMemoryWebApplicationFactoryExtension
 
         var loginUserDto = new LoginUserDto() { Email = "test@test.com", Password = "123456" };
 
-        var responce = client.PostAsJsonAsync("api/Users/login", loginUserDto).GetAwaiter().GetResult();
+        var response = client.PostAsJsonAsync("api/Users/login", loginUserDto).GetAwaiter().GetResult();
 
-        var content = responce.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
-        var token = JsonConvert.DeserializeObject<CustomResponseDto<TokenDto>>(content);
+        var token = JsonConvert.DeserializeObject<CustomResponseDto<TokenDto>>(response.Content.ReadAsStringAsync()
+            .Result);
 
         client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", $"{token.Data.AccessToken}");
